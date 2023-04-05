@@ -1,38 +1,34 @@
 #!/usr/bin/env bash
-# Sets up a web server for deployment of web_static.
+# This script sets up my web servers for web_static deployment
 
-apt-get update
-apt-get install -y nginx
 
-mkdir -p /data/web_static/releases/test/
-mkdir -p /data/web_static/shared/
-echo "Holberton School" > /data/web_static/releases/test/index.html
-ln -sf /data/web_static/releases/test/ /data/web_static/current
+# This command updates the packages with yes to every prompt
+sudo apt-get -y update
+sudo apt-get -y install nginx
 
-chown -R ubuntu /data/
-chgrp -R ubuntu /data/
+# Configuring the firewall
+sudo ufw allow 'Nginx HTTP'
 
-printf %s "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
-    root   /var/www/html;
-    index  index.html index.htm;
+# This command creates the directories
+sudo mkdir -p /data/web_static/releases/test /data/web_static/shared
 
-    location /hbnb_static {
-        alias /data/web_static/current;
-        index index.html index.htm;
-    }
+# Adding a fake html page
+echo "<h1>This is allawake.tech</h1>" > /data/web_static/releases/test/index.html
 
-    location /redirect_me {
-        return 301 http://cuberule.com/;
-    }
+# This command is to prevent overwrite
+if [ -d "/data/web_static/current" ];
+then
+    echo "path /data/web_static/current exists"
+    sudo rm -rf /data/web_static/current;
+fi;
 
-    error_page 404 /404.html;
-    location /404 {
-      root /var/www/html;
-      internal;
-    }
-}" > /etc/nginx/sites-available/default
+# This command creates the symbolic link
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo chown -hR ubuntu:ubuntu /data
 
-service nginx restart
+sudo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+
+sudo ln -sf '/etc/nginx/sites-available/default' '/etc/nginx/sites-enabled/default'
+
+# This command restarts the nginx
+sudo service nginx restart
