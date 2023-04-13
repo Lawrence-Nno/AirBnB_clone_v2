@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This script creates and distributes an archive to your web servers, 
+This script creates and distributes an archive to your web servers,
 using the function deploy
 """
 import os.path
@@ -35,8 +35,8 @@ def do_deploy(archive_path):
 
     Args:
         archive_path (str): The path of the archive to distribute.
-    Returns: False if the file doesn't exist at archive_path 
-	or an error occurs otherwise - True.
+    Returns: False if the file doesn't exist at archive_path
+    or an error occurs otherwise - True.
     """
     if os.path.isfile(archive_path) is False:
         return False
