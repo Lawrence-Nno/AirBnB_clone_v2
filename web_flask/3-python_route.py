@@ -29,9 +29,9 @@ def c(text):
 
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python(text ="is cool"):
-    """This func returns "is cool" or whatever command line
-    argument passed to it with a prefix of "Python" """
+def python(text="is cool"):
+    """This func returns 'is cool' or whatever command line
+    argument passed to it with a prefix of 'Python'"""
     return 'Python %s' % escape(text.replace("_", " "))
 
 
