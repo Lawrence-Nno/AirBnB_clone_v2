@@ -16,6 +16,15 @@ def states():
     return render_template('9-states.html', state=states)
 
 
+@app.route('/states/<id>', strict_slashes=False)
+def states_id(id):
+    """This func displays a HTML page of an id if it exists"""
+    for state in storage.all("State").values():
+        if state.id == id:
+            return render_template('9-states.html', state=state)
+    return render_template('9-states.html')
+
+
 @app.teardown_appcontext
 def teardown(exc):
     """This func removes the current SQLAlchemy Session"""
