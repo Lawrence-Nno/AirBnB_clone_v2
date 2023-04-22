@@ -13,7 +13,7 @@ def states():
     """This func displays an HTML page of a state object if found with
     its state id and their details and cities inside the tag 'BODY' """
     states = storage.all("State")
-    return render_template('9-states.html', states=states)
+    return render_template('9-states.html', state=states)
 
 
 @app.teardown_appcontext
