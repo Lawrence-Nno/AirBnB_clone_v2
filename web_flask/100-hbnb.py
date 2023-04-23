@@ -8,13 +8,14 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
-@app.route('/hbnb_filters', strict_slashes=False)
-def hbnb_filters():
-    """Displays a previously coded HTML page '6-index.html' """
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    """Displays a previously coded HTML page '8-index.html' """
     states = storage.all("State")
     amenities = storage.all("Amenity")
-    return render_template('10-hbnb_filters.html',
-           states=states, amenities=amenities)
+    places = storage.all("Place")
+    return render_template('100-hbnb.html', states=states,
+           amenities=amenities, places=places)
 
 
 @app.teardown_appcontext
