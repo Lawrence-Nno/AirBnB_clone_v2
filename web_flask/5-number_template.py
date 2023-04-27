@@ -10,13 +10,13 @@ app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def hello_hbnb():
-    """This function displays 'Hello HBNB'"""
+    """This function url/page displays 'Hello HBNB'"""
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
-    """This url/page displays 'HBNB'"""
+    """This function url/page displays 'HBNB'"""
     return 'HBNB'
 
 
